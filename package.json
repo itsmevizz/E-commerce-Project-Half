@@ -1,0 +1,28 @@
+{
+  "name": "mainproject-01",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-handlebars": "^6.0.5",
+    "express-handler": "^0.2.0",
+    "express-session": "^1.17.2",
+    "flash": "^1.1.0",
+    "hbs": "^4.2.0",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.2",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.4",
+    "sweetalert2": "^11.4.14",
+    "twilio": "^3.77.0"
+  }
+}

@@ -1,0 +1,122 @@
+{{!-- <section>
+  <div class="container">
+    <div class="row mt-5 mb-1">
+    </div>
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">User-Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Number</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody class="">
+        {{#each users}}
+        <tr>
+          {{! <th scope="row"></th> }}
+          <td>{{this._id}}</td>
+          <td>{{this.Name}}</td>
+          <td>{{this.Email}}</td>
+          <td>{{this.Number}}</td>
+          <td>{{#if this.Status}}
+            <a href="/admin/Block-user?id={{this._id}}" class="btn btn-danger"
+              onclick="return confirm('Want to Block {{this.Name}}?')">Block</a>
+            {{else}}
+            <a href="/admin/Unblock-user?id={{this._id}}" class="btn btn-primary">Activate</a>
+            {{/if}}
+
+          </td>
+        </tr>
+        {{/each}}
+
+      </tbody>
+    </table>
+  </div>
+</section> --}}
+
+
+<section>
+  <!doctype html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/stylesheets/A.style.css.pagespeed.cf.KLDarfLOam.css">
+<script nonce="8aaf27e1-9593-4b3f-a84d-5b3f6863a186">(function(w,d){!function(a,e,t,r){a.zarazData=a.zarazData||{},a.zarazData.executed=[],a.zaraz={deferred:[]},a.zaraz.q=[],a.zaraz._f=function(e){return function(){var t=Array.prototype.slice.call(arguments);a.zaraz.q.push({m:e,a:t})}};for(const e of["track","set","ecommerce","debug"])a.zaraz[e]=a.zaraz._f(e);a.addEventListener("DOMContentLoaded",(()=>{var t=e.getElementsByTagName(r)[0],z=e.createElement(r),n=e.getElementsByTagName("title")[0];for(n&&(a.zarazData.t=e.getElementsByTagName("title")[0].text),a.zarazData.w=a.screen.width,a.zarazData.h=a.screen.height,a.zarazData.j=a.innerHeight,a.zarazData.e=a.innerWidth,a.zarazData.l=a.location.href,a.zarazData.r=e.referrer,a.zarazData.k=a.screen.colorDepth,a.zarazData.n=e.characterSet,a.zarazData.o=(new Date).getTimezoneOffset(),a.zarazData.q=[];a.zaraz.q.length;){const e=a.zaraz.q.shift();a.zarazData.q.push(e)}z.defer=!0,z.referrerPolicy="origin",z.src="https://preview.colorlib.com/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(a.zarazData))),t.parentNode.insertBefore(z,t)}))}(w,d,0,"script");})(window,document);</script></head>
+<body>
+<section class="ftco-section">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-md-6 text-center mb-5">
+</div>
+</div>
+<div class="row">
+<div class="col-md-12">
+<div class="table-wrap">
+<table class="table table-responsive-xl">
+<thead>
+<tr>
+<th>&nbsp;</th>
+<th>Email</th>
+<th>Number</th>
+<th>Username</th>
+<th>Status</th>
+<th>Action</th>
+<th>&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+  {{#each users}}
+<tr class="alert" role="alert">
+<td>
+
+</td>
+<td class="d-flex align-items-center">
+<div class="email">
+<span>{{this.Email}}</span>
+<span>{{this._id}}</span>
+</div>
+</td>
+<td>{{this.Number}}</td>
+<td>{{this.Name}}</td>
+{{#if this.Status}}
+<td class="status"><span class="active">Active</span></td>
+{{else}}
+<td class="status"><span class="waiting" >Blocked</span></td>
+{{/if}}
+ <td>{{#if this.Status}}
+            <a href="/admin/Block-user?id={{this._id}}" class="btn btn-danger btn-sm"
+              onclick="return confirm('Want to Block {{this.Name}}?')">Block</a>
+            {{else}}
+            <a href="/admin/Unblock-user?id={{this._id}}" class="btn btn-primary btn-sm">Activate</a>
+            {{/if}}
+          </td>
+<td>
+<button type="submit" class="close" data-dismiss="alert" aria-label="Close">
+  <a href="/admin/delete-user?id={{this._id}}"onclick="return confirm('Want to delete {{this.Name}}?')"><span aria-hidden="true">Delete <i class="fa fa-close"></i></span></a>
+</button>
+</td>
+</tr>
+{{/each}}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</section>
+<script data-cfasync="false" src="https://preview.colorlib.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/javascripts/jquery.min.js"></script>
+<script src="javascripts/popper.js%2bbootstrap.min.js%2bmain.js.pagespeed.jc.QmeOzhLoYz.js"></script><script>eval(mod_pagespeed_9xXcEtpYtN);</script>
+<script>eval(mod_pagespeed_BJGmYHiKmi);</script>
+<script>eval(mod_pagespeed_5dQ5Pl5NE4);</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"7089e1dfcc2ea081","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.12.0","si":100}' crossorigin="anonymous"></script>
+</body>
+</html>
+
+</section>

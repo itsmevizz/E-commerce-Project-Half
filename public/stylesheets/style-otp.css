@@ -1,0 +1,49 @@
+
+.height-100 {
+  height: 80vh;
+}
+.card {
+  width: 800px;
+  border: none;
+  height: 500px;
+  box-shadow: 0px 5px 20px 0px #d2dae3;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card h6 {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  font-family: Khmer;
+  font-weight: bolder;
+}
+#code{
+    font-family: Klee One;
+     color: #747474;
+}
+.inputs input {
+  width: 40px;
+  height: 40px;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.form-control:focus {
+  box-shadow: none;
+  border: 2px solid red;
+}
+.validate {
+  border-radius: 7px;
+  height: 50px;
+  border: 1px solid #37BDAE;
+  width: 240px;
+  color: white;
+  font-size: 30px;
+  font-family: Koulen;
+  letter-spacing: 10%;
+}

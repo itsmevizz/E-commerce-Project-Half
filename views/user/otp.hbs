@@ -1,0 +1,70 @@
+<div class="container height-100 d-flex justify-content-center align-items-center">
+    <div class="position-relative">
+        <div class="card p-2 ">
+            <h6>Mobile phone varification</h6>
+            <div>
+                <span id="code">Enter the code we just send on your mobile<br />
+                    phone
+                </span>
+                <small style="font-weight: bold ;">+91{{Number}}</small>
+            </div>
+            
+            <form action="/otp-varify?Number={{Number}}&Name={{Name}}" method="post">
+                <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+                    <input class="m-2 text-center form-control rounded" type="text" name="Number" id="first" maxlength="1" />
+                    <input class="m-2 text-center form-control rounded" type="text" name="Number" id="second" maxlength="1" />
+                    <input class="m-2 text-center form-control rounded" type="text" name="Number" id="third" maxlength="1" />
+                    <input class="m-2 text-center form-control rounded" type="text" name="Number" id="fourth" maxlength="1" />
+                </div>
+                {{#if otpErr}}
+                <div class="text-center">
+                  <span id="otpErr" class="text-danger">{{otpErr}}</span>
+                </div>
+                {{/if}}
+                <div class="mt-4">
+                    <button type="submit" class="btn px-4 validate" style="background-color: #37BDAE;">Validate</button>
+                </div>
+            </form>
+            <form action="/otp-resend?Number={{Number}}" class="text-center" method="post">
+              <h5 style="font-family: Krub; font-size: 16;">Don’t receive the code?</h5>
+              <span><button type="submit" style="border: none; background: none; color: red;">Resend OTP</button></span>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function OTPInput() {
+  const inputs = document.querySelectorAll('#otp > *[id]');
+  for (let i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('keydown', function(event) {
+      if (event.key === "Backspace") {
+        inputs[i].value = '';
+        if (i !== 0)
+          inputs[i - 1].focus();
+      } else {
+        if (i === inputs.length - 1 && inputs[i].value !== '') {
+          return true;
+        } else if (event.keyCode > 47 && event.keyCode < 58) {
+          inputs[i].value = event.key;
+          if (i !== inputs.length - 1)
+            inputs[i + 1].focus();
+          event.preventDefault();
+        } else if (event.keyCode > 64 && event.keyCode < 91) {
+          inputs[i].value = String.fromCharCode(event.keyCode);
+          if (i !== inputs.length - 1)
+            inputs[i + 1].focus();
+          event.preventDefault();
+        }
+      }
+    });
+  }
+}
+OTPInput();
+</script>
+
+<style>
+    body {
+        background: #C4C4C4;
+    }
+</style>

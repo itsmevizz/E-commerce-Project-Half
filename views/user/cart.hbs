@@ -1,0 +1,470 @@
+<div class="container ">
+
+    <div class="col">
+        <h4><b>Shopping Cart</b></h4>
+    </div>
+    <a class="label" href="/">
+        <i class="material-icons">chevron_left</i>Continue shopping
+    </a>
+</div>
+{{#if products}}
+<div id="wrapper">
+    <div class="container">
+        <div class="row">
+
+
+
+            <div id="content" class="col-xs-12">
+                <section id="main">
+                    <div class=" row">
+                        <!-- Left Block: cart product informations & shpping -->
+                        <div class=" col-md-6 col-xs-12 col-lg-8 overflow-auto mb-4 scrollbar scrollbar-rare-wind">
+
+
+                            <!-- cart products detailed -->
+                            <div class="card">
+                                <div class="row">
+                                    <div class="col-md-12 cart">
+                                        {{#if products}}
+                                        <div class="title">
+                                            <div class="row">
+                                                {{!-- <div class="col">
+                                                    <h4><b>Shopping Cart</b></h4>
+                                                </div> --}}
+
+                                                <div class="col align-self-center text-right text-muted">{{cartCount}}
+                                                    Items</div>
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        {{#each products}}
+                                        <div class="row border-top border-bottom">
+                                            <div class="row main align-items-center">
+                                                <div class="col-2"><img class="img-fluid mt-2 mb-2"
+                                                        src="/images/{{this.product.img.[0]}}" style="height: 100px;">
+                                                </div>
+                                                <div class="col">
+                                                    <div class="row text-muted"></div>
+                                                    <div class="row">{{this.product.Name}}</div>
+                                                </div>
+                                                <div class="col">
+                                                    <div>
+                                                        <input type="button" value="-" id="lesss"
+                                                            class="button-minus border rounded-circle  icon-shape icon-sm"
+                                                            data-field="quantity" style="width: 2rem; height: 2rem;"
+                                                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)">
+                                                        <span type="number" id="{{this.product._id}}" name="quantity"
+                                                            class="qty quantity-field border-0 text-center w-25 m-1">{{this.quantity}}</span>
+                                                        <input type="button" value="+"
+                                                            class="button-plus border rounded-circle icon-shape icon-sm "
+                                                            data-field="quantity" style="width: 2rem; height: 2rem;"
+                                                            onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)">
+                                                    </div>
+                                                </div>
+                                                <div class="col"><span>&#8377;</span> <span
+                                                        id="subTtl">{{totalAmt}}{{this.product.Price}}</span>
+                                                    <button type="submit" class="close" data-dismiss="alert"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true"
+                                                            onclick="removeItem('{{this._id}}','{{this.product._id}}')"><i
+                                                                class="fa fa-close"></i></span></a>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- shipping informations -->
+
+
+                        </div>
+                        <!-- Right Block: cart subtotal & cart total -->
+                        <div class=" col-md-6 col-xs-12 col-lg-4">
+
+
+                            <div class="">
+                                <div class="cart-detailed-totals">
+
+                                    <div class="card-block">
+                                        <div class="cart-summary-line" id="cart-subtotal-products">
+
+                                            <span class="label js-subtotal">
+                                                {{cartCount}} items
+                                            </span>
+
+                                            <span class="value" id="totalAmt">{{totalAmt}}</span>
+                                            <span class="value">&#8377;</span>
+                                        </div>
+                                        <div class="cart-summary-line" id="cart-subtotal-shipping">
+                                            <span class="label">
+                                                Shipping
+                                            </span>
+                                            <span class="value">Free</span>
+                                            <div><small class="value"></small></div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <hr class="separator">
+
+                                    <div class="card-block">
+                                        <div class="cart-summary-line cart-total">
+                                            <span class="label">Total (tax excl.)</span>
+                                            <span class="value" id="totalAll">{{totalAmt}}</span>
+                                            <span class="value">&#8377;</span>
+                                        </div>
+
+                                        {{!-- <div class="cart-summary-line">
+                                            <small class="label">Taxes</small>
+                                            <small class="value">&#8377;0.00</small>
+                                        </div> --}}
+                                    </div>
+
+                                    <hr class="separator">
+                                </div>
+
+
+                                <div class="checkout text-sm-center card-block">
+                                    <a href="/payment"><button type="button" class="btn btn-primary" disabled>
+                                            Placeorder</button></a>
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+                            <div id="block-reassurance">
+                                <ul>
+                                    <li>
+                                        <div class="block-reassurance-item">
+                                            <img src="http://demo.posthemes.com/pos_ecolife_fashion/modules/blockreassurance/img/ic_verified_user_black_36dp_1x.png"
+                                                alt="Security policy (edit with Customer reassurance module)">
+                                            <span class="h6">Security policy (edit with Customer reassurance
+                                                module)</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="block-reassurance-item">
+                                            <img src="http://demo.posthemes.com/pos_ecolife_fashion/modules/blockreassurance/img/ic_local_shipping_black_36dp_1x.png"
+                                                alt="Delivery policy (edit with Customer reassurance module)">
+                                            <span class="h6">Delivery policy (edit with Customer reassurance
+                                                module)</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="block-reassurance-item">
+                                            <img src="http://demo.posthemes.com/pos_ecolife_fashion/modules/blockreassurance/img/ic_swap_horiz_black_36dp_1x.png"
+                                                alt="Return policy (edit with Customer reassurance module)">
+                                            <span class="h6">Return policy (edit with Customer reassurance
+                                                module)</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </section>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+{{else}}
+<div class="container-fluid  mt-100">
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="mt-5">
+                <div class="card-body cart">
+                    <div class="col-sm-12 empty-cart-cls text-center">
+                        <img src="https://i.imgur.com/dCdflKN.png" width="130" height="130" class="img-fluid mb-4 mr-3">
+                        <h3><strong>Your Cart is Empty</strong></h3>
+                        <h4>Add something to make me happy :)</h4>
+                        <a href="/" class="btn btn-primary cart-btn-transform m-3" data-abc="true">continue shopping</a>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{{/if}}
+
+<footer id="footer">
+
+    <div class="footer-container">
+        <div class="footer_top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-4 links footer_block">
+                        <div class="footer_about_us">
+                            <div class="logo_footer"><a href="#"><img src="Logo/Logo2.svg" alt="" /></a></div>
+                            <div class="desc_info">
+                                {{!-- <p class="txt_info">We are a team of designers and developers that create high
+                                    quality Magento, Prestashop, Opencart.</p> --}}
+                                <div class="need_help">
+                                    <p>NEED HELP?</p>
+                                    <p class="phone">(+91) 7356122587</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-footer social_follow ">
+                            <ul>
+                                <li class="facebook"><a href="" target="_blank">Facebook</a></li>
+                                <li class="twitter"><a href="" target="_blank">Twitter</a>
+                                </li>
+                                <li class="youtube"><a href="" target="_blank">YouTube</a></li>
+                                <li class="googleplus"><a href="" target="_blank">Google +</a></li>
+                                <li class="instagram"><a href="" target="_blank">Instagram</a></li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-2 links footer_block">
+                        <h3 class=" hidden-sm-down">Information</h3>
+                        <div class="title clearfix hidden-md-up" data-target="#footer_2" data-toggle="collapse">
+                            <h3>Information</h3>
+                            <span class="float-xs-right">
+                                <span class="navbar-toggler collapse-icons">
+                                    <i class="material-icons add">keyboard_arrow_down</i>
+                                    <i class="material-icons remove">keyboard_arrow_up</i>
+                                </span>
+                            </span>
+                        </div>
+                        <ul id="footer_2" class="collapse footer_list">
+
+                            <li>
+                                <a id="link-cms-page-1-2" class="cms-page-link" href="content/1-delivery.html"
+                                    title="Our terms and conditions of delivery">
+                                    Delivery
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-cms-page-4-2" class="cms-page-link" href="content/4-about-us.html"
+                                    title="Learn more about us">
+                                    About us
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-cms-page-5-2" class="cms-page-link" href="content/5-secure-payment.html"
+                                    title="Our secure payment method">
+                                    Secure payment
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-static-page-contact-2" class="cms-page-link" href="contact-us.html"
+                                    title="Use our form to contact us">
+                                    Contact us
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-static-page-sitemap-2" class="cms-page-link" href="sitemap.html"
+                                    title="Lost ? Find what your are looking for">
+                                    Sitemap
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-static-page-stores-2" class="cms-page-link" href="stores.html" title="">
+                                    Stores
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-2 links footer_block">
+                        <h3 class=" hidden-sm-down">Custom Links</h3>
+                        <div class="title clearfix hidden-md-up" data-target="#footer_3" data-toggle="collapse">
+                            <h3>Custom Links</h3>
+                            <span class="float-xs-right">
+                                <span class="navbar-toggler collapse-icons">
+                                    <i class="material-icons add">keyboard_arrow_down</i>
+                                    <i class="material-icons remove">keyboard_arrow_up</i>
+                                </span>
+                            </span>
+                        </div>
+                        <ul id="footer_3" class="collapse footer_list">
+
+                            <li>
+                                <a id="link-cms-page-2-3" class="cms-page-link" href="content/2-legal-notice.html"
+                                    title="Legal notice">
+                                    Legal Notice
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-product-page-prices-drop-3" class="cms-page-link" href="prices-drop.html"
+                                    title="Our special products">
+                                    Prices drop
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-product-page-new-products-3" class="cms-page-link" href="new-products.html"
+                                    title="Our new products">
+                                    New products
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-product-page-best-sales-3" class="cms-page-link" href="best-sales.html"
+                                    title="Our best sales">
+                                    Best sales
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-static-page-authentication-3" class="cms-page-link" href="login.html"
+                                    title="">
+                                    Login
+                                </a>
+                            </li>
+
+                            <li>
+                                <a id="link-static-page-my-account-3" class="cms-page-link" href="loginfd9a.html"
+                                    title="">
+                                    My account
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 links footer_block">
+                        <h3 class=" hidden-sm-down">Newsletter</h3>
+                        <div class="title clearfix hidden-md-up" data-target="#footer_4" data-toggle="collapse">
+                            <h3>Newsletter</h3>
+                            <span class="float-xs-right">
+                                <span class="navbar-toggler collapse-icons">
+                                    <i class="material-icons add">keyboard_arrow_down</i>
+                                    <i class="material-icons remove">keyboard_arrow_up</i>
+                                </span>
+                            </span>
+                        </div>
+                        <div id="footer_4" class="collapse footer_list">
+                            <div class="img_app"><a href="#"><img
+                                        src="http://demo.posthemes.com/pos_ecolife_fashion/img/cms/app_store.png"
+                                        alt="" /></a> <a href="#"><img
+                                        src="http://demo.posthemes.com/pos_ecolife_fashion/img/cms/google_play.png"
+                                        alt="" /></a></div>
+                            <div class="ft_newsletter col-footer">
+                                <p>You may unsubscribe at any moment. For that purpose, please find our contact
+                                    info in the legal notice.</p>
+                                <div class="col col_form">
+                                    <form action="http://demo.posthemes.com/pos_ecolife_fashion/en/#footer"
+                                        method="post">
+                                        <input class="btn btn-primary" name="submitNewsletter" type="submit"
+                                            value="Sign up">
+                                        <div class="input-wrapper">
+                                            <input name="email" type="email" value="" placeholder="Your email address">
+                                        </div>
+                                        <input type="hidden" name="action" value="0">
+                                        <div class="clearfix"></div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-4 links footer_block">
+                        <div class="copyright">Copyright © <a href="http://posthemes.com/">Posthemes</a>. All
+                            Rights Reserved</div>
+                    </div>
+                    <div class="col-md-8 links footer_block">
+                        <div class="payment"><img
+                                src="http://demo.posthemes.com/pos_ecolife_fashion/img/cms/payment.png" alt="" /></div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
+
+
+</main>
+<div class="back-top"><a href="#" class="back-top-button"></a></div>
+
+<script type="text/javascript"
+    src="http://demo.posthemes.com/pos_ecolife_fashion/themes/theme_ecolife_fashion1/assets/cache/bottom-e7e67c14.js"></script>
+
+
+
+
+
+<div id="poscompare-notification" class="">
+    <div class="notification-inner">
+        <span class="notification-title"><i class="fa fa-check" aria-hidden="true"></i> Product added to
+            compare.</span>
+    </div>
+</div>
+
+{{!-- for Scrollbar --}}
+<style>
+    .scrollbar-rare-wind::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .scrollbar-rare-wind::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+
+    .scrollbar-rare-wind::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-gradient(linear, left bottom, left top, from(#a8edea), to(#fed6e3));
+        background-image: -webkit-linear-gradient(bottom, #a8edea 0%, #fed6e3 100%);
+        background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+    }
+
+    .scrollbar-rare-wind {
+        scrollbar-color: #a8edea #F5F5F5;
+    }
+</style>
+{{!-- for Scrollbar End--}}

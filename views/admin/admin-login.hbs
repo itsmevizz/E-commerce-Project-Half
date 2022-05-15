@@ -1,0 +1,26 @@
+<div class="login-page">
+    <div class="form">
+        <p style="font-family: KoHo; font-size: 20px;">SIGN IN</p>
+        <hr class="mx-auto" style="width: 200px; height: 2px; color: #373CBD;">
+        <form class="login-form" action="admin/login" method="post">
+            {{#if err}}
+            <p class="text-danger">{{err}}</p>
+            {{/if}}
+            <div class="form-outline mb-2" style="text-align: left;">
+                <label class="form-label mb-3" style="font-family: Kokoro; font-size: 15px;">ID :</label>
+                <input type="text" name="User" placeholder="" />
+            </div>
+            <div class="form-outline" style="text-align: left;">
+                <label class="form-label mb-3" style="font-family: Kokoro; font-size: 15px;">PASSWORD :</label>
+
+                <input type="password" name="Password" placeholder="" />
+                <button class="mt-5">login</button>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    body {
+        background: #C4C4C4;
+    }
+</style>

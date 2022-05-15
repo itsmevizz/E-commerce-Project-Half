@@ -1,0 +1,60 @@
+<div class="form-modal">
+
+  <div class="form-toggle">
+    <div>
+      <button id="login-toggle">log in</button>
+    </div>
+    <div>
+      <a href="/user-signUp"><button>sign up</button></a>
+    </div>
+  </div>
+
+  <div id="login-form">
+    <form action="/user-login" method="post" class="pb-5">
+    {{#if loginErr}}
+    <p class="text-danger">{{loginErr}}</p>
+    {{/if}}
+      <label class="form-label mb-2" style="font-family: Kokoro; font-size: 15px;">EMAIL ADDRESS :</label>
+      <input type="text" name="Email" placeholder="Enter email" />
+      <label class="form-label mb-2" style="font-family: Kokoro; font-size: 15px;">PASSWORD :</label>
+      <input type="password" name="Password" id="passShow" placeholder="Enter password" />
+      <span class="float-right position-relative" style="margin-left: -70;" id="Hide" onclick="showpass()" >Show</span>
+      <button type="submit" class="btn login">login</button>
+      {{#if success}}
+      <p><a href="">{{success}}</a></p>
+      {{/if}}
+      <hr />
+    </form>
+  </div>
+</div>
+<script>    
+function showpass(){
+  var Show = document.getElementById('passShow')
+  if(Show.type ==='password'){
+    Show.type ='text'
+    document.getElementById('Hide').innerHTML ='Hide'
+  }else{
+    Show.type ='password'
+    document.getElementById('Hide').innerHTML ='Show'
+  }
+}
+</script>
+<style>
+ body{
+    background:#C4C4C4 ;
+}
+#Hide:hover{
+  cursor: default;
+  color: #FF0000;
+}
+.form-modal{
+    position:relative;
+    width:830px;
+    height: 540px;
+    margin-top:4em;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    box-shadow:0 3px 20px 0px rgba(0, 0, 0, 0.1)
+}
+</style>

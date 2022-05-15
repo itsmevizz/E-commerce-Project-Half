@@ -1,0 +1,74 @@
+<section>
+  <div class="container  mt-4">
+    <div class="row">
+      <div class="col-md-4">
+        <h2 class="text-center">Add Category</h2>
+        <form action="/admin/add-category" method="POST" enctype="multipart/form-data">
+          <label for="">Name</label>
+          <input type="text" name="Name" class="form-control" />
+          <label for="">Description</label>
+          <input type="text" name="Description" class="form-control" />
+
+          <label for="">Image</label>
+          <input type="file" name="Image" id="formFile" class="form-control" multiple>
+          {{#if failed}}
+          <p class="text-danger">{{failed}}</p>
+          {{else}}
+          {{#if success}}
+          <p class="text-success">{{success}}</p>
+          {{/if}}
+          {{/if}}
+          <button type="submit" class="btn btn-success mt-2">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </section> 
+  <section>
+  <div class="container">
+    <table class="table mt-5" id="productTable">
+      <thead>
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th>Image</th>
+          <th scope="col">Action</th>
+          <th> </th>
+        </tr>
+      </thead>
+      <tbody class="">
+        {{#each category}}
+          <tr>
+            {{! <th scope="row"></th> }}
+            <td>{{@index}}</td>
+            <td>{{this.Name}}</td>
+            <td>{{this.Description}}</td>
+            <td><img
+                src="/images/{{this.img}}"
+                alt=""
+                style="width: 90px; height: 80px;"
+              />
+            </td>
+            <td><a
+                href="/admin/edit-product/{{this._id}}"
+                class="btn btn-primary btn-sm"
+              >Edit</a>
+              <a
+                href="/admin/delete-product/{{this._id}}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Want to delete {{this.Name}}?')"
+              >Delete</a>
+
+            </td>
+          </tr>
+        {{/each}}
+
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{{!-- <script>
+  $(document).ready( function () { $('#productTable').DataTable(); } );
+</script> --}}
