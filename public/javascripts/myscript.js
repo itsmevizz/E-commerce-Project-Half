@@ -27,7 +27,7 @@ function changeQuantity(cartId, ProId, userId, count) {
     method: "post",
     success: (response) => {
       if (response) {
-        // if(quantity+count <= 1){
+        if(quantity+count <= 1){
         //   $('#lesss').hide()
         // }else{
         //   $('#lesss').show()
@@ -155,3 +155,101 @@ function placeOrder() {
     });
   }
 }
+
+// Edit address
+$("#editAddress-form").submit((e) => {
+  console.log(e);
+  e.preventDefault();
+  if (validateForm(true)) {
+    $.ajax({
+      url: "/editAddress",
+      method: "post",
+      data: $("#editAddress-form").serialize(),
+      success: (response) => {
+        if (response.updated) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Updated successfully",
+            showConfirmButton: false,
+            timer: 2500,
+          }).then(()=>{
+            location.href = "/user-profile";
+          })
+        }
+      },
+    });
+  } else {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Please give the required",
+    });
+  }
+});
+
+
+// edit profile
+$("#editProfile-form").submit((e) => {
+  console.log(e);
+  e.preventDefault();
+  if (validateProfile(true)) {
+    $.ajax({
+      url: "/change-userProfile",
+      method: "post",
+      data: $("#editProfile-form").serialize(),
+      success: (response) => {
+        if (response.updated) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Edited successfully",
+            showConfirmButton: false,
+            timer: 2500,
+          }).then(()=>{
+            location.href = "/user-profile";
+          })
+        }else{
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Somthing wrong please try later",
+          });
+        }
+      },
+    });
+  }
+});
+
+
+// change password
+$("#changePassword-form").submit((e) => {
+  console.log(e);
+  e.preventDefault();
+  if (changePassword(true)) {
+    $.ajax({
+      url: "/change-userPassword",
+      method: "post",
+      data: $("#changePassword-form").serialize(),
+      success: (response) => {
+        if (response.updated) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Passwoer changed successfully",
+            showConfirmButton: false,
+            timer: 2500,
+          }).then(()=>{
+            location.href = "/user-profile";
+          })
+        }else{
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Password incorrect",
+          });
+        }
+      },
+    });
+  }
+});

@@ -177,12 +177,12 @@
         </div>
         <div class="col col col-md-4" id="_desktop_logo">
           <a href="/">
-            <img class="logo img-responsive"
-              src="/Logo/Logo2.svg"
-              alt="Sparkle in " style="width: 350px; height: 150px;">
+            <img class="logo img-responsive" src="/Logo/Logo2.svg" alt="Sparkle in "
+              style="width: 350px; height: 150px;">
           </a>
         </div>
         <div class=" col col-md-4 col-sm-12 position-static">
+
           <div id="_desktop_cart_block">
             <div class="blockcart cart-preview"
               data-refresh-url="//demo.posthemes.com/pos_ecolife_fashion/en/module/ps_shoppingcart/ajax"
@@ -191,7 +191,11 @@
                 <a rel="nofollow" href="/cart" class="desktop hidden-md-down">
                   <span class="item_count" id="carrt-count">{{cartCount}}</span>
                   <span></span>
-                  <span class="item_total">00.0</span>
+                  {{#if user}}
+                  <span class="item_total">Hi {{name}}</span>
+                  {{else}}
+                  <span>Please Login</span>
+                  {{/if}}
                 </a>
                 <a rel="nofollow" href="/cart" class="mobile hidden-lg-up">
                   <span class="item_count">0</span>
@@ -254,19 +258,19 @@
             <div id="_desktop_wishtlist">
               <div class="wishtlist_top">
                 <a class="" href="">
-                  <i class="ion-android-favorite-outline"></i>
-                  <span class="txt_wishlist">Wishlist</span>
+                  <i class="fa-regular fa-heart"></i>
                   (<span class="cart-wishlist-number">0</span>)
                 </a>
               </div>
             </div>
             <div id="_desktop_compare">
               <div class="compare_top">
-                <a href="http://demo.posthemes.com/pos_ecolife_fashion/module/poscompare/comparePage">
-                  <i class="ion-ios-shuffle-strong"></i> <span>Compare (<span id="poscompare-nb"></span>)</span>
+                <a href="/user-profile">
+                  <i class="fa-regular fa-user"></i><span>Profile </span>
                 </a>
               </div>
             </div>
+
             <script type="text/javascript">
               var baseDir = 'http://demo.posthemes.com/pos_ecolife_fashion/'; 
             </script>
@@ -521,7 +525,7 @@
                   <span>Contact us</span>
                 </a>
               </li>
-               <li class=" menu-item menu-item35   ">
+              <li class=" menu-item menu-item35   ">
 
                 <a href="/cart">
 

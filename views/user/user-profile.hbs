@@ -1,0 +1,197 @@
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-1 py-5">
+                <div>
+                    <img class="rounded-circle mt-5" width="150px"
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                </div>
+                <span class="font-weight-bold">{{profile.Name}}</span><span
+                    class="text-black-50">{{profile.Email}}</span><span>
+                </span>
+            </div>
+            <form id="changePassword-form" method="post">
+            <div class="row mt-1 flex-center">
+                <div class="col-md-10"><label class="labels">Old Password</label><input type="text" class="form-control"
+                        placeholder="" name="oldPassword" value=""></div>
+                <div class="col-md-10"><label class="labels">New Password</label> </span><input type="text" name="newPassword" class="form-control"
+                        value="" placeholder="" id="password" onkeyup="validatePassword()"></div>
+                         <span id="password-error" class="text-danger"></span>
+                         <input type="text " name="userId" value="{{user._id}}" hidden>
+                        <div class="mt-1 "><button class="btn btn-primary profile-button" onclick="changePassword()" type="submit">Change Password</button></div>
+            </div>
+            </form>
+        </div>
+        <div class="col-md-5 border-right">
+            <form id="editProfile-form" method="post">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h4 class="text-right">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">Name</label>
+                    <span id="name-error" class="text-danger"> </span>
+                        <input type="text" id="name" class="form-control" name="Name"  value="{{profile.Name}}" onkeyup="validateName()">
+                    </div>
+                    <div class="col-md-6"><label class="labels">Surname</label> <span id="surname-error" class="text-danger"> </span><input type="text" class="form-control"
+                            value="{{profile.Surname}}" id="surname" onkeyup=" validateSurName()" name="Surname" placeholder="surname"></div>
+                            <input type="text " name="userId" value="{{user._id}}" hidden>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12"><label class="labels">Mobile Number</label> <span id="number-error" class="text-danger"> </span><input type="text"
+                            class="form-control" placeholder="enter phone number"  name="Number" id="number"  value="{{profile.Number}}" onkeyup=" validateNumber()"></div>
+
+
+                    <div class="col-md-12"><label class="labels">Email ID</label> <span id="email-error" class="text-danger"></span><input type="text" class="form-control"
+                            placeholder="enter email id" id="email" name="Email" onkeyup="validateEmail()" value="{{profile.Email}}"></div>
+                </div>
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" onclick="validateProfile()" type="submit">Save
+                        Profile</button></div>
+            </div>
+            </form>
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience">
+                    <div class="container">
+                        <div class="align-middle">
+                            <h3>Address</h3>
+                        </div>
+                        <div class=" col-md-4 col-xs-12 col-lg-8 overflow-auto mb-4 scrollbar scrollbar-rare-wind"
+                            style="min-width: 450px;">
+                            <!-- cart address detailed -->
+                            <div style="max-height: 500px;">
+                                <div class="row">
+                                    <div>
+                                        {{#each address}}
+                                        <div>
+                                            <div class="">
+                                                <a href="/edit-profileAddress?id={{this._id}}"
+                                                    class="btn btn-success btn-sm">Edit</a>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="card-text"
+                                                    style="font-weight: bolder; font-size: large; color: black;">
+                                                    {{this.Name}}
+                                                </p>
+                                                <p class="card-text">{{this.Address}}</p>
+                                                <p class="card-text">{{this.City}}</p>
+                                                <p class="card-text">{{this.Pincode}}</p>
+                                                <p class="card-text">{{this.Mobile}}</p>
+                                                <input type="text " name="userId" value="{{user._id}}" hidden>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- shipping informations -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  var nameError = document.getElementById('name-error');
+  var nameOk = document.getElementById("done");
+  var emailError = document.getElementById('email-error');
+  var passwordError = document.getElementById('password-error');
+  var submitError = document.getElementById('submit-error');
+  var numberError = document.getElementById('number-error')
+  var surNameError = document.getElementById('surname-error')
+
+
+  function validateName() {
+    var name = document.getElementById('name').value;
+
+    if (name.length == 0) {
+      nameError.innerHTML = '*';
+      return false;
+    }
+    if (!name.match(/^[A-Za-z]{3,12}$/)) {
+      nameError.innerHTML = '*';
+      return false;
+    }
+
+
+    nameError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+    return true;
+  }
+    function validateSurName() {
+    var name = document.getElementById('surname').value;
+
+    if (!name.match(/^[A-Za-z]{1,12}$/)) {
+      surNameError.innerHTML = '*';
+      {{!-- setTimeout(function () { surNameError.innerHTML = ''; }, 3000); --}}
+      return false;
+    }
+    surNameError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+    return true;
+  }
+
+  function validateEmail() {
+    var email = document.getElementById('email').value;
+
+    if (email.length == 0) {
+      emailError.innerHTML = '*'
+      return false;
+    }
+    if (!email.match(/^[A-Za-z\._\-[0-9]*[@][A-Za-z]*[\.][com]{3}$/)) {
+      emailError.innerHTML = '*'
+      return false;
+    }
+    emailError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+    return true;
+  }
+
+  function validatePassword() {
+    var password = document.getElementById('password').value;
+    if(password.length ==0){
+        return false;
+    }
+
+    if (!password.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)) {
+      passwordError.innerHTML = 'Minimum eight characters, at least one letter and one number';
+      return false;
+    }
+
+    passwordError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+    return true;
+  }
+  function validateNumber() {
+    var number = document.getElementById('number').value;
+    if (!number.match(/^(\+\d{1,3}[- ]?)?\d{10}$/)) {
+      numberError.innerHTML = 'Invalid Number'
+      return false;
+    }
+    numberError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+    return true;
+  }
+  function validateProfile() {
+    if (!validateName() || !validateEmail() || !validateNumber()) {
+
+      return false;
+    }
+    return true;
+
+  }
+
+  function changePassword(){
+      if(!validatePassword()){
+          passwordError.innerHTML = '*';
+          setTimeout(function () { passwordError.innerHTML = ''; }, 2000);
+          return false;
+      }
+      return true;
+  }
+</script>

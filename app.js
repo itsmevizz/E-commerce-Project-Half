@@ -8,6 +8,7 @@ var session = require("express-session");
 var bodyParser = require('body-parser')
 var db = require("./config/database");
 var flash = require('connect-flash');
+var helpers = require('handlebars-helpers')();
 
 
 var adminRouter = require('./routes/admin');

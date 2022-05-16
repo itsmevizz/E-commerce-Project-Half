@@ -9,10 +9,11 @@ const { getAllCategory } = require("../helpers/products.helpers");
 const async = require("hbs/lib/async");
 const { getTotalAmount } = require("../helpers/user-helpers");
 var client = require("twilio")(config.accountSID, config.authToken);
-var verifyLogin =require('../middleware/verifySession')
+var verifyLogin = require("../middleware/verifySession");
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   var user = req.session.user;
+  var name = req.flash.Name;
   let cartCount = 0;
   if (req.session.user) {
     cartCount = await userHelpers.getCartCount(req.session.user._id);
@@ -25,12 +26,13 @@ router.get("/", async function (req, res, next) {
       user,
       category,
       cartCount,
+      name,
     });
   });
 });
 
 router.get("/product-view", async (req, res) => {
-  var user = req.secure.user;
+  var user = req.session.user;
   id = req.query.id;
   totalAmt = await userHelpers.getTotalAmount(req.session.user?._id);
   cartCount = await userHelpers.getCartCount(req.session.user?._id);
@@ -58,7 +60,6 @@ router.get("/user-signUp", (req, res) => {
 
 router.post("/user-login", (req, res) => {
   if (!req.session.user) {
-    console.log("hi");
     if (req.body.Email && req.body.Password) {
       userHelpers.doLogin(req.body).then((response) => {
         if (response.active) {
@@ -78,8 +79,7 @@ router.post("/user-login", (req, res) => {
             // })
             // res.redirect("/");
             req.session.user = response.user;
-            console.log(response + "/*/*/*/");
-            console.log(JSON.stringify(response));
+            req.flash.Name = Name;
             res.redirect("/");
           } else {
             req.flash.loginErr = "Invallid Email or Password";
@@ -171,23 +171,23 @@ router.get("/category", (req, res) => {
 
 router.get("/cart", async (req, res) => {
   var user = req.session.user;
-
+  var name = req.flash.Name;
   totalAmt = await userHelpers.getTotalAmount(req.session.user?._id);
   cartCount = await userHelpers.getCartCount(req.session.user?._id);
   userHelpers.getCartProducts(req.session.user?._id).then((products) => {
-    res.render("user/cart", { products, user, cartCount, totalAmt });
+    res.render("user/cart", { products, user, cartCount, totalAmt, name });
   });
   userHelpers.getCartProducts(req.session.user?._id).then((products) => {
-    res.render("user/cart", { products, user, cartCount });
+    res.render("user/cart", { products, user, cartCount,name});
   });
 });
 
-router.get("/add-to-cart/:id",async (req, res) => {
+router.get("/add-to-cart/:id", async (req, res) => {
   if (req.session.user) {
     count = await userHelpers.getCartCount(req.session.user?._id);
     userHelpers.addToCart(req.params.id, req.session.user._id).then(() => {
       res.json({ status: true, count });
-      console.log(count+'/*/*/*/');
+      console.log(count + "/*/*/*/");
     });
   } else {
     res.json({ status: false });
@@ -210,41 +210,111 @@ router.post("/remove-from-cart", (req, res) => {
   });
 });
 
-
-router.get('/payment',verifyLogin,async(req,res)=>{
-  let address=await userHelpers.getAddressDetails(req.session.user?._id)
+router.get("/payment", verifyLogin, async (req, res) => {
+  var name = req.flash.Name;
+  let address = await userHelpers.getAddressDetails(req.session.user?._id);
   totalAmt = await userHelpers.getTotalAmount(req.session.user?._id);
-  res.render('user/payment',{totalAmt, user:req.session.user,address}
-  )
-})
+  res.render("user/payment", { totalAmt, user: req.session.user,name, address });
+});
 
-router.post('/payment',verifyLogin,async(req,res)=>{
+router.post("/payment", verifyLogin, async (req, res) => {
   console.log(req.query.payment);
-  let products= await userHelpers.getCartProductList(req.session.user?._id)
-  let user=await userHelpers.getProfile(req.session.user?._id)
+  let products = await userHelpers.getCartProductList(req.session.user?._id);
+  let user = await userHelpers.getProfile(req.session.user?._id);
   console.log(user);
-  let address= await userHelpers.getUserAddressDetails(req.query.addressId,req.session.user._id)
+  let address = await userHelpers.getUserAddressDetails(
+    req.query.addressId,
+    req.session.user._id
+  );
   totalAmt = await userHelpers.getTotalAmount(req.session.user?._id);
-  userHelpers.placeOrder(address,products,totalAmt,req.query.payment).then((orderId)=>{
-    if(req.query.payment==='COD'){
-      res.json({ codSuccess: true })
+  userHelpers
+    .placeOrder(address, products, totalAmt, req.query.payment)
+    .then((orderId) => {
+      if (req.query.payment === "COD") {
+        res.json({ codSuccess: true });
+      }
+    });
+});
+
+router.get("/addNewAddress", verifyLogin, async (req, res) => {
+  let totalAmt = await userHelpers.getTotalAmount(req.session.user?._id);
+  res.render("user/Add-address", { totalAmt, user: req.session.user });
+});
+
+router.post("/addNewAddress", async (req, res) => {
+  let products = await userHelpers.getCartProductList(req.body?.userId);
+  let totalAmt = await userHelpers.getTotalAmount(req.body?.userId);
+  userHelpers
+    .placeOrderWithNewAddress(req.body, products, totalAmt)
+    .then(() => {
+      res.render("user/Add-address", { totalAmt, user: req.session.user });
+    });
+});
+
+router.get("/order-history", verifyLogin, async (req, res) => {
+  let user = req.session.user;
+  let orders = await userHelpers.userOrders(req.session.user?._id);
+  console.log(JSON.stringify(orders));
+  res.render("user/order-history", { user, orders });
+});
+
+router.get("/user-profile", verifyLogin, async (req, res) => {
+  let success = req.flash.success
+  let failed = req.flash.failed
+  let user = req.session.user;
+  var name = req.flash.Name;
+  let address = await userHelpers.getAddressDetails(req.session.user?._id);
+  let profile = await userHelpers.getProfile(req.session.user?._id);
+  res.render("user/user-profile", { profile, user, name, address, success, failed });
+});
+
+router.get("/edit-profileAddress",verifyLogin,async (req, res) => {
+  let user = req.session.user;
+  var name = req.flash.Name;
+  var addressId = req.query.id
+    let address =await  userHelpers.getUserAddressDetails(req.query.id);
+    res.render("user/edit-address", { user,name, address, addressId });
+});
+
+
+router.post("/editAddress", async (req, res) => {
+
+  userHelpers.editAddress(req.body).then((respons) => {
+    console.log(respons);
+      res.json({updated:true})
+    });
+});
+
+router.post('/change-userProfile',(req,res)=>{
+  // var user= req.body.userId
+  userHelpers.changeuserProfile(req.body).then((response) => {
+    if (response) {
+      res.json({updated:true})
+      // req.flash.success =
+      //   "Password changed successfully";
+      // // res.redirect("/user-profile"); 
+    } else {
+      res.json({updated:false})
     }
-  })
+  });
 })
 
-router.get('/addNewAddress',verifyLogin,async(req,res)=>{
-  let totalAmt = await userHelpers.getTotalAmount(req.session.user?._id)
-  res.render('user/Add-address', { totalAmt, user: req.session.user }) 
+
+
+router.post('/change-userPassword',(req,res)=>{
+  var user= req.body.userId
+  userHelpers.changePassword(req.body, user).then((response) => {
+    if (response) {
+      res.json({updated:true})
+      // req.flash.success =
+      //   "Password changed successfully";
+      // // res.redirect("/user-profile");
+    } else {
+      res.json({updated:false})
+    }
+  });
 })
 
-router.post('/addNewAddress',async(req,res)=>{
-  let products = await userHelpers.getCartProductList(req.body?.userId)
-  let totalAmt = await userHelpers.getTotalAmount(req.body?.userId)
-  userHelpers.placeOrderWithNewAddress(req.body, products, totalAmt).then(()=>{
-    res.render('user/Add-address', { totalAmt, user: req.session.user })
-  })
-  
-})
 
 
 module.exports = router;

@@ -1,0 +1,290 @@
+<div id="" class="container " style="max-width: 1300px;">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="col-xs-12">
+                <section id="main">
+                    <form id="editAddress-form" method="post">
+                        <div class=" row">
+                            <!-- Left Block: cart product informations & shpping -->
+                            <div class=" col-md-6 col-xs-12 col-lg-8">
+                                <!-- cart address detailed -->
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-8 mb-4">
+                                            <div class="card mb-4">
+                                                <div class="">
+                                                    <h5 class="mb-0 text-dark">EDIT ADDRESS</h5>
+                                                    <hr>
+                                                </div>
+                                                <div class="card-body bg-light">
+                                                    <!-- 2 column grid layout with text inputs for the first and last names -->
+                                                    <div class="row mb-4">
+                                                        <div class="col">
+
+
+                                                            <div class="form-outline">
+                                                                <input type="text" id="userName" name="Name"
+                                                                    class="form-control" value="{{address.Name}}"
+                                                                    onkeyup="validateName()" />
+                                                                <p id="Name-error" class="error text-danger"></p>
+                                                                <label class="form-label"
+                                                                    for="form7Example1">Name</label>
+
+                                                            </div>
+
+
+                                                            <input type="text" id="userName" value="{{addressId}}"
+                                                                name="addressId" class="form-control" hidden />
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-outline">
+                                                                <input type="number" id="phoneNumber" name="PhoneNumber"
+                                                                    class="form-control" value="{{address.Mobile}}"
+                                                                    onkeyup="validatePhoneNumber()" />
+                                                                <p id="Phone-error" class="error text-danger"></p>
+                                                                <label class="form-label" for="form7Example2">Phone
+                                                                    Number</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Text input -->
+                                                    <div class="row mb-4">
+                                                        <div class="col">
+                                                            <div class="form-outline mb-4">
+                                                                <input type="text" id="userState" name="State"
+                                                                    value="{{address.State}}" class="form-control"
+                                                                    onkeyup="validateState()" />
+                                                                <p id="State-error" class="error text-danger"></p>
+                                                                <label class="form-label"
+                                                                    for="form7Example3">State</label>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Text input -->
+                                                        <div class="col">
+                                                            <div class="form-outline mb-4">
+                                                                <input type="number" id="pin" name="Pincode"
+                                                                    value="{{address.Pincode}}" class="form-control"
+                                                                    onkeyup="validatePin()" />
+                                                                <p id="pin-error" class="error text-danger"></p>
+                                                                <label class="form-label"
+                                                                    for="form7Example4">Pincode</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Email input -->
+                                                    <div class="row mb-4">
+                                                        <div class="col">
+                                                            <div class="form-outline mb-4">
+                                                                <input type="text" id="userCity" name="City"
+                                                                    value="{{address.City}}" class="form-control"
+                                                                    onkeyup="validateCity()" />
+                                                                <p id="City-error" class="error text-danger"></p>
+                                                                <label class="form-label"
+                                                                    for="form7Example5">City</label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Number input -->
+                                                        <div class="col">
+                                                            <div class="form-outline mb-4">
+                                                                <input type="text" name="House" class="form-control"
+                                                                    value="{{address.House}}" onkeyup="validateAddress()" />
+                                                                <label class="form-label" for="form7Example6">House
+                                                                    No,Building Name</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Message input -->
+                                                    <div class="form-outline mb-4">
+                                                        <textarea class="form-control" id="address" name="Address"
+                                                            rows="4"
+                                                            onkeyup="validateAddress()">{{address.Address}}</textarea>
+                                                        <p id="address-error" class="error text-danger"></p>
+                                                        <label class="form-label" for="form7Example7">Address
+                                                            information</label>
+                                                    </div>
+                                                    <button type="submit" onclick="validateForm()" class="btn btn-success mt-4">Submit</button>
+                                                    <!-- Checkbox -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+</main>
+<div class="back-top"><a href="#" class="back-top-button"></a></div>
+
+<script type="text/javascript"
+    src="http://demo.posthemes.com/pos_ecolife_fashion/themes/theme_ecolife_fashion1/assets/cache/bottom-e7e67c14.js"></script>
+
+
+
+
+
+<div id="poscompare-notification" class="">
+    <div class="notification-inner">
+        <span class="notification-title"><i class="fa fa-check" aria-hidden="true"></i> Product added to
+            compare.</span>
+    </div>
+</div>
+
+{{!-- for Scrollbar --}}
+<style>
+    .scrollbar-rare-wind::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+
+    .scrollbar-rare-wind::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
+    }
+
+    .scrollbar-rare-wind::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        background-image: -webkit-gradient(linear, left bottom, left top, from(#a8edea), to(#fed6e3));
+        background-image: -webkit-linear-gradient(bottom, #00fff2 0%, #fed6e3 100%);
+        background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+    }
+
+    .scrollbar-rare-wind {
+        scrollbar-color: #a8edea #F5F5F5;
+    }
+</style>
+{{!-- for Scrollbar End--}}
+
+
+<script>
+
+
+    // validate address form
+    var nameError = document.getElementById('Name-error');
+    var stateError = document.getElementById('State-error');
+    var cityError = document.getElementById('City-error');
+    var PasswordError = document.getElementById('Password-error');
+    var phoneError = document.getElementById('Phone-error')
+    var submitError = document.getElementById('Submit-error');
+    var pinError = document.getElementById('pin-error')
+    var addressError = document.getElementById('address-error')
+
+    function validateName() {
+        var name = document.getElementById('userName').value;
+
+        if (name.length == 0) {
+            nameError.innerHTML = '*';
+            return false;
+        }
+        if (!name.match(/^[A-Za-z]*\s{0}[A-Za-z]*/) || name.length < 3 || name.length > 20) {
+            nameError.innerHTML = '*';
+            return false;
+        }
+        nameError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+        return true;
+    }
+
+    function validateState() {
+        var state = document.getElementById('userState').value;
+
+        if (state.length == 0) {
+            stateError.innerHTML = '*';
+            return false;
+        } else if (state.length <= 3) {
+            stateError.innerHTML = '*';
+            return false;
+        }
+        stateError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+        return true;
+    }
+    function validateCity() {
+        var city = document.getElementById('userCity').value;
+
+        if (city.length == 0) {
+            cityError.innerHTML = '*';
+            return false;
+        } else if (city.length <= 4) {
+            cityError.innerHTML = '*';
+            return false;
+
+        }
+        cityError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+        return true;
+    }
+
+    function validatePhoneNumber() {
+        var message = document.getElementById('phoneNumber').value;
+        var num = 10;
+        var num = message.length;
+        if (num == 0) {
+            phoneError.innerHTML = '*';
+            return false;
+        }
+
+        if (num > 10 || num < 10) {
+            phoneError.innerHTML = '*';
+            return false;
+        } else if (num == 10) {
+            phoneError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+            return true;
+        }
+    }
+    function validatePin() {
+        var pin = document.getElementById('pin').value
+        if (pin.length < 6 || pin.length > 6) {
+            pinError.innerHTML = '*';
+            return false;
+        }
+        pinError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+        return true;
+    }
+    function validateAddress() {
+        var address = document.getElementById('address').value;
+        if (address.length == 0 || address.length < 20 || address.length > 60) {
+            addressError.innerHTML = '*'
+            return false;
+        }
+        addressError.innerHTML = '<i class="fa-solid fa-circle-check text-success"></i>';
+        return true;
+    }
+
+    function validateForm() {
+        if (!validateName() || !validatePhoneNumber() || !validatePin() || !validateState() || !validateAddress()||!validateCity()) {
+            // submitError.style.display='block';
+            return false;
+        } else {
+            return true;
+        }
+    }
+// End validation
+
+
+</script>
