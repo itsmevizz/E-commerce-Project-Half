@@ -150,7 +150,7 @@ function placeOrder() {
           }).then(() => {
             location.href = "/";
           });
-        } else if (PaymentMethod === "ONLINE") {
+        } else if (res.razorpaySuccess) {
           razorpayPayment(res);
         } else {
           payPalPayment(res);

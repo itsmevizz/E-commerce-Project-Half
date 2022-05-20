@@ -224,7 +224,9 @@ router.get("/payment", verifyLogin, async (req, res) => {
   var name = req.flash.Name;
   let address = await userHelpers.getAddressDetails(req.session.user?._id);
   totalAmt = await userHelpers.getTotalAmount(req.session.user?._id);
-  res.render("user/payment", { totalAmt, user: req.session.user, name, address });
+  if(!totalAmt){
+    res.redirect('/')
+  }res.render("user/payment", { totalAmt, user: req.session.user, name, address });
 });
 
 router.post("/payment", verifyLogin, async (req, res) => {
@@ -241,7 +243,7 @@ router.post("/payment", verifyLogin, async (req, res) => {
       userHelpers.generateRazorpay(orderId, totalPrice).then((response)=>{
         console.log('\n line 232');
         response.user = req.session?.user
-        res.json(response)
+        res.json({razorpaySuccess:true})
       })
     }else{
       var create_payment_json = {
@@ -303,7 +305,7 @@ router.get('/success',(req,res)=>{
         throw error;
     } else {
       userHelpers.changePaymentStatus(orderId).then(()=>{
-        
+        console.log('\n Hi success');
       })
     }
 });
