@@ -230,6 +230,12 @@ function payPalPayment(payment) {
     }
   }
 }
+// Payment success
+function paypalSuccess(){
+  console.log('Hi success');
+  location.href = "/";
+}
+
 
 // Edit address
 $("#editAddress-form").submit((e) => {
@@ -389,3 +395,4 @@ function deliveryStatus(value, orderId) {
     }
   });
 }
+

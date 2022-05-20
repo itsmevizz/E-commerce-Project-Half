@@ -80,7 +80,10 @@
   {{#if login}}
   {{>user-login-header}}
   {{else}}
+  {{#if error}}
+  {{else}}
   {{>user-header}}
+  {{/if}}
   {{/if}}
   {{/if}}
   {{/if}}

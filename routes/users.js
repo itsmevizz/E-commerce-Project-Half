@@ -145,13 +145,10 @@ router.post("/otp-varify", (req, res) => {
       code: out,
     })
     .then((data) => {
-      console.log(data.status + "otp status/*/*/*/");
       if (data.status == "approved") {
         req.session.user = Name;
-        console.log(Name + "/*/*namemememe");
         res.redirect("/");
       } else {
-        console.log(data.status + "no booyy");
         otpErr = "Invalid OTP";
         res.render("user/otp", { otpErr, Number });
       }
@@ -305,7 +302,8 @@ router.get('/success',(req,res)=>{
         throw error;
     } else {
       userHelpers.changePaymentStatus(orderId).then(()=>{
-        console.log('\n Hi success');
+        console.log('\n Hi success')
+        res.render('user/successPay')
       })
     }
 });
