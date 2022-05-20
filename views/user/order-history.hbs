@@ -5,31 +5,36 @@
             <div class="row p-2 bg-white border rounded">
                 <div class="col-md-6 mt-1">
                     <h5>OrderId: {{this._id}}</h5>
-                    {{!-- {{#each this.products}}
-                    <div class="d-flex flex-row">
-                        <span>Quantity:</span><span>{{quantity}}</span>
-                    </div>
-                    {{/each}} --}}
                     {{!-- <div class="mt-1 mb-1 spec-1"><span>100% cotton</span><span class="dot"></span><span>Light
                             weight</span><span class="dot"></span><span>Best finish<br></span></div>
                     <div class="mt-1 mb-1 spec-1"><span>Unique design</span><span class="dot"></span><span>For
                             men</span><span class="dot"></span><span>Casual<br></span></div> --}}
-                    <p class="text-justify text-truncate para mb-0"><span class="fw-bold fst-italic">Name:</span> <span>{{this.deliveryDetails.Name}}</span> <br><span class="fw-bold fst-italic"> Address: </span>{{this.deliveryDetails.Address}} <br></span><span class="fw-bold fst-italic"> Pincode: </span>{{this.deliveryDetails.Pincode}} <br><span class="fw-bold fst-italic"> Number: </span>{{this.deliveryDetails.Mobile}} <br>
-                    <span class="fw-bold fst-italic"> Date: </span>{{moment this.Date format="DD-MM-YYYY"}} <br></p>
+                    <p class="text-justify text-truncate para mb-0"><span class="fw-bold fst-italic">Name:</span>
+                        <span>{{this.deliveryDetails.Name}}</span> <br><span class="fw-bold fst-italic"> Address:
+                        </span>{{this.deliveryDetails.Address}} <br></span><span class="fw-bold fst-italic"> Pincode:
+                        </span>{{this.deliveryDetails.Pincode}} <br><span class="fw-bold fst-italic"> Number:
+                        </span>{{this.deliveryDetails.Mobile}} <br>
+                        <span class="fw-bold fst-italic"> Date: </span>{{moment this.Date format="DD-MM-YYYY"}} <br>
+                    </p>
+                    {{!-- {{#each this.products}}
+                    <div class="d-flex flex-row">
+                        <span>Quantity:</span><span>{{item}}</span>
+                    </div>
+                    {{/each}} --}}
                 </div>
                 <div class="align-items-center align-content-center col-md-3 border-left mt-1">
                     <div class="d-flex flex-row align-items-center ">
                         <h4 class="mr-1">Total ₹{{this.totalAmount}}</h4><span class="strike-text"></span>
                     </div>
                     <h6 class="text-success">{{this.status}}</h6>
-                    <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm"
-                            type="button">View Order</button><button class="btn btn-sm mt-2"
-                            type="button" style="background-color: rgb(255, 191, 0); color: white">Cancel Order</button></div>
+                    <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">View
+                            Order</button><button class="btn btn-sm mt-2" type="button"
+                            style="background-color: rgb(255, 191, 0); color: white" onclick="cancelOrder('{{this._id}}')">Cancel Order</button></div>
                 </div>
             </div>
-           
-            
-           
+
+
+
         </div>
     </div>
 </div>

@@ -19,8 +19,20 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/admin-home", (req, res) => {
-  res.render("admin/admin-home", { adminlogin:true,title });
+  console.log('hi');
+  res.render("admin/admin-home",{admin:true,layouts: false});
 });
+
+router.get('/view-allproducts',(req,res)=>{
+  productHelper.getAllCategory().then((categorys)=>{
+    let category = categorys
+    productHelper.getAllProducts().then((product)=>{
+      res.render("admin/view-allproducts",{admin:true, category, product});
+      req.flash.success = false
+      req.flash.failed =false
+    })
+  })
+})
 
 router.get("/admin-login", (req, res) => {
   res.render("admin/admin-login", { title, adminlogin: true });
@@ -113,7 +125,7 @@ router.post("/login", (req, res) => {
   ) {
     req.session.admin = req.body.User;
     if (req.session.admin) {
-      res.redirect("/admin/add-product");
+      res.redirect("/admin/admin-home");
     }
   } else {
     if (req.body.User == "" || req.body.Password == "") {
@@ -152,4 +164,22 @@ router.post("/edit-product", (req, res) => {
   });
 });
 
+
+// order manegement
+router.get('/all-orders',(req,res)=>{
+  productHelper.getAllorders().then((orders)=>{
+   
+    res.render('admin/all-orders',{admin:true,orders})
+  })
+})  
+
+// delevery status
+router.post('/deleveryStatusUpdate',(req,res)=>{
+  console.log('Hi status');
+  let status=req.body.status
+  let orderId=req.body.orderId  
+  productHelper.statusUpdate(status,orderId).then((response)=>{
+   res.json(true)
+  })
+})
 module.exports = router;

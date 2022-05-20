@@ -1,3 +1,8 @@
+{{> admin-header}}
+<script type="text/javascript" src="/richtexteditor/rte.js"></script>
+<script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
+<script type="text/javascript" src='/richtexteditor/plugins/all_plugins.js'></script>
+
 <section>
   <div class="container mt-4">
     <div class="row">
@@ -23,16 +28,18 @@
           <label for="">Stock</label>
           <input type="number" name="Stock" class="form-control" />
           <label for="">Size</label>
-          <select class="form-select " aria-label="Default select example" name="Size">
+          <select class="form-select " aria-label="Default select example" name="Size" multiple>
             {{!-- <option selected></option> --}}
             <option value="All">All</option>
             <option value="S">S</option>
             <option value="M">M</option>
             <option value="L">L</option>
           </select>
-          <label for="">Description</label>
-          <input type="text" name="Description" class="form-control" />
+          <div id="div_editor1">
 
+             <label for="" >Description</label>
+          <input type="text" name="Description" class="form-control" />
+          </div>
           <label for="">Image</label>
           <input type="file" name="Image" id="formFile" class="form-control" multiple>
           {{#if failed}}
@@ -48,50 +55,9 @@
     </div>
   </div>
 </section>
- <section>
-  <div class="container">
-    <table class="table mt-5" id="productTable">
-      <thead>
-        <tr>
-          <th scope="col">No</th>
-          <th scope="col">Name</th>
-          <th scope="col">Category</th>
-          <th>Image</th>
-          <th scope="col">Action</th>
-          <th> </th>
-        </tr>
-      </thead>
-      <tbody class="">
-        {{#each product}}
-          <tr>
-            {{! <th scope="row"></th> }}
-            <td>{{@index}}</td>
-            <td>{{this.Name}}</td>
-            <td>{{this.Category}}</td>
-            <td><img
-                src="/images/{{this.img.[0]}}"
-                alt=""
-                style="width: 90px; height: 80px;"
-              />
-            </td>
-            <td><a
-                href="/admin/view-product?id={{this._id}}"
-                class="btn btn-warning btn-sm"
-              >View</a>
-              <a
-                href="/admin/edit-product?id={{this._id}}"
-                class="btn btn-primary btn-sm"
-              >Edit</a>
-              <a
-                href="/admin/delete-product?id={{this._id}}"
-                class="btn btn-danger btn-sm"
-                onclick="return confirm('Want to delete: {{this.Name}}?')"
-              >Delete</a>
-            </td>
-          </tr>
-        {{/each}}
 
-      </tbody>
-    </table>
-  </div>
-</section>
+
+<script>
+	var editor1 = new RichTextEditor("#div_editor1");
+	//editor1.setHTMLCode("Use inline HTML or setHTMLCode to init the default content.");
+</script>

@@ -27,7 +27,7 @@ function changeQuantity(cartId, ProId, userId, count) {
     method: "post",
     success: (response) => {
       if (response) {
-        if(quantity+count <= 1){
+        // if(quantity+count <= 1){
         //   $('#lesss').hide()
         // }else{
         //   $('#lesss').show()
@@ -147,12 +147,87 @@ function placeOrder() {
             title: "Order Placed",
             showConfirmButton: false,
             timer: 2500,
-          }).then(()=>{
+          }).then(() => {
             location.href = "/";
-          })
+          });
+        } else if (PaymentMethod === "ONLINE") {
+          razorpayPayment(res);
+        } else {
+          payPalPayment(res);
         }
       },
     });
+  }
+}
+
+// razorpay
+
+function razorpayPayment(order) {
+  var options = {
+    key: "rzp_test_BMQyq5KAzN3eqy", // Enter the Key ID generated from the Dashboard
+    amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    currency: "INR",
+    name: "Sparklein",
+    description: "Test Transaction",
+    image: "",
+    order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    handler: function (response) {
+      varifyPayment(response, order);
+    },
+    prefill: {
+      name: order.user.Name,
+      email: order.user.Email,
+      contact: order.user.Number,
+    },
+    notes: {
+      address: "Razorpay Corporate Office",
+    },
+    theme: {
+      color: "#3399cc",
+    },
+  };
+  var rzp1 = new Razorpay(options);
+  rzp1.open();
+}
+function varifyPayment(payment, order) {
+  $.ajax({
+    url: "/verify-payment",
+    data: {
+      payment,
+      order,
+    },
+    method: "post",
+    success: (response) => {
+      if (response.status) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Order Placed",
+          showConfirmButton: false,
+          timer: 2500,
+        }).then(() => {
+          location.href = "/";
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Payment Failed, Select another payment method",
+        }).then(() => {
+          location.href = "/payment";
+        });
+      }
+    },
+  });
+}
+
+// PayPalPayment
+
+function payPalPayment(payment) {
+  for (let i = 0; i < payment.links.length; i++) {
+    if (payment.links[i].rel === "approval_url") {
+      location.href=(payment.links[i].href)
+    }
   }
 }
 
@@ -173,9 +248,9 @@ $("#editAddress-form").submit((e) => {
             title: "Updated successfully",
             showConfirmButton: false,
             timer: 2500,
-          }).then(()=>{
+          }).then(() => {
             location.href = "/user-profile";
-          })
+          });
         }
       },
     });
@@ -187,7 +262,6 @@ $("#editAddress-form").submit((e) => {
     });
   }
 });
-
 
 // edit profile
 $("#editProfile-form").submit((e) => {
@@ -206,10 +280,10 @@ $("#editProfile-form").submit((e) => {
             title: "Edited successfully",
             showConfirmButton: false,
             timer: 2500,
-          }).then(()=>{
+          }).then(() => {
             location.href = "/user-profile";
-          })
-        }else{
+          });
+        } else {
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -220,7 +294,6 @@ $("#editProfile-form").submit((e) => {
     });
   }
 });
-
 
 // change password
 $("#changePassword-form").submit((e) => {
@@ -239,10 +312,10 @@ $("#changePassword-form").submit((e) => {
             title: "Passwoer changed successfully",
             showConfirmButton: false,
             timer: 2500,
-          }).then(()=>{
+          }).then(() => {
             location.href = "/user-profile";
-          })
-        }else{
+          });
+        } else {
           Swal.fire({
             icon: "error",
             title: "Oops...",
@@ -253,3 +326,66 @@ $("#changePassword-form").submit((e) => {
     });
   }
 });
+
+function cancelOrder(orderId) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: "/cancel-order",
+        data: {
+          orderId: orderId,
+        },
+        method: "post",
+        success: (response) => {
+          if (response) {
+            Swal.fire(
+              "Deleted!",
+              "Your order has been canceled .",
+              "success"
+            ).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
+          }
+        },
+      });
+    }
+  });
+}
+
+function deliveryStatus(value, orderId) {
+  Swal.fire({
+    title: "Are you sure want to Change the Order status",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: "/admin/deleveryStatusUpdate",
+        data: {
+          status: value,
+          orderId: orderId,
+        },
+        method: "post",
+        success: (response) => {
+          if (response) {
+            Swal.fire("success", "Status Updated .", "success");
+          }
+        },
+      });
+    }
+  });
+}
